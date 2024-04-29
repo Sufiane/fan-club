@@ -32,11 +32,11 @@ model Medias {
 }
 
 model UserFollows {
-  id         Int   @id @default(autoincrement())
   followerId Int
   follower   Users @relation("Follows", fields: [followerId], references: [id])
   followedId Int
   followed   Users @relation("Followers", fields: [followedId], references: [id])
 
+  @@id([followedId, followerId])
   @@map("user_follows")
 }

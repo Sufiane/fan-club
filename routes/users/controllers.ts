@@ -3,7 +3,7 @@ import { type FastifyRequest } from 'fastify'
 import { UsersDao, type UsersTypes } from '../../domain'
 import {
     type UserParams,
-    type CreateUserPayload, UpdateUserPayload,
+    type CreateUserPayload, UpdateUserPayload, FollowUserPayload,
 } from './types'
 import { hashPassword } from '../../auth'
 
@@ -60,5 +60,33 @@ export const updateUser = async ({
         console.log('e', e)
 
         throw new Error('Could not update User.')
+    }
+}
+
+export const addFollow = async ({
+                                    params: { id },
+                                    body,
+                                }: FastifyRequest<{
+    Params: UserParams,
+    Body: FollowUserPayload
+}>): Promise<void> => {
+    try {
+        await UsersDao.addFollow(id, body.userId)
+    } catch (e) {
+        throw new Error('Could not add follow.')
+    }
+}
+
+export const deleteFollow = async ({
+                                    params: { id },
+                                    body,
+                                }: FastifyRequest<{
+    Params: UserParams,
+    Body: FollowUserPayload
+}>): Promise<void> => {
+    try {
+        await UsersDao.deleteFollow(id, body.userId)
+    } catch (e) {
+        throw new Error('Could not add follow.')
     }
 }

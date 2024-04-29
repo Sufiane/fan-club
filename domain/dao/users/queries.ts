@@ -58,3 +58,23 @@ export const update = async (userId: number, payload: UpdateUserPayload): Promis
         }
     }
 }
+
+export const addFollow = async (userId: number, userIdToFollow: number): Promise<void> => {
+    await dbClient.userFollows.create({
+        data: {
+            followedId: userIdToFollow,
+            followerId: userId,
+        },
+    })
+}
+
+export const deleteFollow = async (userId: number, userIdToFollow: number): Promise<void> => {
+    await dbClient.userFollows.delete({
+        where: {
+            followedId_followerId: {
+                followedId: userIdToFollow,
+                followerId: userId,
+            },
+        },
+    })
+}

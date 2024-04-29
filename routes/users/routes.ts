@@ -1,11 +1,13 @@
 import type { FastifyInstance } from 'fastify'
 import {
-    createUser,
+    addFollow,
+    createUser, deleteFollow,
     deleteUser,
     getOneUser,
     updateUser,
 } from './controllers'
 import {
+    addFollow as addFollowSchema,
     createUser as createUserSchema,
     deleteUser as deleteUserSchema,
     getUser as getUserSchema,
@@ -48,5 +50,25 @@ export async function usersRoutes(fastify: FastifyInstance): Promise<void> {
             params: deleteUserSchema,
         },
         handler: deleteUser,
+    })
+
+    fastify.route({
+        method: 'POST',
+        url: '/:id/follow/create',
+        schema: {
+            params: getUserSchema,
+            body: addFollowSchema,
+        },
+        handler: addFollow,
+    })
+
+    fastify.route({
+        method: 'POST',
+        url: '/:id/follow/delete',
+        schema: {
+            params: getUserSchema,
+            body: addFollowSchema,
+        },
+        handler: deleteFollow,
     })
 }

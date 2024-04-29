@@ -30,3 +30,7 @@ export const updateUser =
         description: Type.Optional(Type.String()),
         profilePictureUrl: Type.Optional(Type.String({ format: 'url' })),
     })
+
+export const addFollow = Type.Object({
+    userId: Type.Number({ minimum: 0 }),
+})
