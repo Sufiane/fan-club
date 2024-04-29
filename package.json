@@ -1,0 +1,29 @@
+{
+  "name": "fan-club",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "prisma": {
+    "schema": "domain/prisma/schema.prisma"
+  },
+  "scripts": {
+    "db:generate": "prisma generate",
+    "db:migration:create": "prisma migrate dev --name",
+    "start": "ts-node index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sufiane Souissi <su.souissi@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "5.13.0",
+    "@sinclair/typebox": "0.32.27",
+    "bcrypt": "5.1.1",
+    "fastify": "4.26.2",
+    "prisma": "5.13.0",
+    "ts-node": "10.9.2"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "5.0.2",
+    "typescript": "5.4.5"
+  }
+}
