@@ -8,11 +8,20 @@ export const create = async (payload: CreateUserPayload): Promise<void> => {
 }
 
 export const deleteUser = async (UserId: number): Promise<void> => {
-    await dbClient.users.delete({
-        where: {
-            id: UserId,
-        },
-    })
+    try {
+        await dbClient.users.delete({
+            where: {
+                id: UserId,
+            },
+        })
+    } catch (e) {
+        // P2025 error code refer to a not found row,
+        // meaning we tried to delete a row that do not exist currently in the DB
+        // @ts-ignore
+        if (e.code !== 'P2025') {
+            throw e
+        }
+    }
 }
 
 export const basicSelect = {
