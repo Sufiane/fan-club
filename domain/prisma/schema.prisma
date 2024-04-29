@@ -11,10 +11,20 @@ datasource db {
 }
 
 model Users {
-  id                Int    @id @default(autoincrement())
+  id                Int      @id @default(autoincrement())
   username          String
-  email             String @unique
+  email             String   @unique
   password          String
   description       String
-  profilePictureUrl String @map("profile_picture_url")
+  profilePictureUrl String   @map("profile_picture_url")
+  Medias            Medias[]
+}
+
+model Medias {
+  id          Int    @id @default(autoincrement())
+  title       String
+  description String
+  url         String
+  userId      Int    @map("user_id")
+  user        Users  @relation(fields: [userId], references: [id])
 }
