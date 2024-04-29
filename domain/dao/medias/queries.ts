@@ -53,3 +53,34 @@ export const deleteMedia = async (mediaId: number): Promise<void> => {
         }
     }
 }
+
+export const getUserFeed = async (userId: number, follows: number[]): Promise<Media[]> => {
+    return dbClient.medias.findMany({
+        select: mediaSelect,
+        where: {
+            userId: {
+                in: follows,
+            },
+            hasBeenViewedBy: {
+                none: {
+                    id: userId,
+                },
+            },
+        },
+    })
+}
+
+export const updateMediaViews = async (userId: number, mediaId: number): Promise<void> => {
+    await dbClient.medias.update({
+        data: {
+            hasBeenViewedBy: {
+                set: {
+                    id: userId,
+                },
+            },
+        },
+        where: {
+            id: mediaId,
+        },
+    })
+}

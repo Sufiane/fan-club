@@ -78,3 +78,18 @@ export const deleteFollow = async (userId: number, userIdToFollow: number): Prom
         },
     })
 }
+
+export const getUserFollows = (userId: number): Promise<{ id: number }[]> => {
+    return dbClient.users.findMany({
+        select: {
+            id: true,
+        },
+        where: {
+            UserFollowers: {
+                every: {
+                    followerId: userId,
+                },
+            },
+        },
+    })
+}

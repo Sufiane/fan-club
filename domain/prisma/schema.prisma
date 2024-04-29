@@ -20,15 +20,17 @@ model Users {
   Medias            Medias[]
   UserFollowers     UserFollows[] @relation("Follows")
   UserFollows       UserFollows[] @relation("Followers")
+  MediasViewed      Medias[]      @relation("MediaViewed")
 }
 
 model Medias {
-  id          Int    @id @default(autoincrement())
-  title       String
-  description String
-  url         String
-  userId      Int    @map("user_id")
-  user        Users  @relation(fields: [userId], references: [id])
+  id              Int     @id @default(autoincrement())
+  title           String
+  description     String
+  url             String
+  userId          Int     @map("user_id")
+  user            Users   @relation(fields: [userId], references: [id])
+  hasBeenViewedBy Users[] @relation("MediaViewed")
 }
 
 model UserFollows {
